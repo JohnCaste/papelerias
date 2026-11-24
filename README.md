@@ -17,9 +17,20 @@ negocio y el flujo de trabajo con especificaciones.
 ![BigQuery](https://img.shields.io/badge/BigQuery-669DF6?logo=googlebigquery&logoColor=white)
 ![pytest](https://img.shields.io/badge/pytest-0A9EDC?logo=pytest&logoColor=white)
 
-<!-- Capturas: agregar en docs/ con datos ficticios
 ![Punto de venta](docs/punto-de-venta.png)
--->
+
+<table>
+  <tr>
+    <td><img src="docs/catalogo.png" alt="Catálogo con stock por producto"></td>
+    <td><img src="docs/desglose.png" alt="Desglose del día por categoría y método de pago"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Catálogo con stock, filtros y código de barras</sub></td>
+    <td align="center"><sub>Desglose del día por categoría y método de pago</sub></td>
+  </tr>
+</table>
+
+<sub>Capturas tomadas sobre una sucursal de demostración con productos y ventas ficticios.</sub>
 
 ## Qué hace
 
@@ -187,7 +198,6 @@ Servicio de Windows con arranque automático.
 ## Próximos pasos
 
 - Modo demo con datos ficticios que no necesite Google Cloud.
-- Capturas de pantalla en este README.
 
 ## Autor
 
