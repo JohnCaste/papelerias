@@ -34,6 +34,7 @@ import acceso_datos.repositorios.movimientos_inventario as movimientos_repo
 import acceso_datos.repositorios.productos as productos_repo
 import acceso_datos.repositorios.productos_local as productos_local
 import catalogos.imagenes as imagenes
+import catalogos.validacion_producto as validacion
 
 logger = logging.getLogger(__name__)
 
@@ -151,16 +152,9 @@ def _numero_seguro(valor):
 
 
 def _validar_precio(datos: dict):
-    """Devuelve un mensaje de error si 'precio' viene y es negativo; si no, None."""
-    precio = datos.get("precio")
-    if precio in (None, ""):
-        return None
-    try:
-        if float(precio) < 0:
-            return "El precio no puede ser negativo"
-    except (TypeError, ValueError):
-        return "El precio no es un numero valido"
-    return None
+    """Devuelve un mensaje de error si 'precio' viene y es negativo; si no, None.
+    Regla compartida con la importacion: catalogos/validacion_producto.py."""
+    return validacion.error_precio(datos.get("precio"))
 
 
 def _normalizar_codigo_barras(datos: dict):
@@ -169,11 +163,7 @@ def _normalizar_codigo_barras(datos: dict):
     Se usa para no guardar cadenas vacias (romperia la unicidad: '' == '') y
     para comparar contra el catalogo antes de crear/editar.
     """
-    valor = datos.get("codigo_barras")
-    if not isinstance(valor, str):
-        return None
-    valor = valor.strip()
-    return valor or None
+    return validacion.normalizar_codigo_barras_estricto(datos.get("codigo_barras"))
 
 
 def _codigo_barras_en_conflicto(codigo: str, id_propio: str | None = None):
@@ -264,9 +254,7 @@ def listar_marcas():
 def agregar_productos():
     datos = request.get_json(silent=True) or {}
 
-    campos_requeridos = ("nombre", "categoria", "precio")
-    # 'precio' = 0 es un valor valido: se comprueba presencia, no verdad.
-    faltantes = [c for c in campos_requeridos if datos.get(c) in (None, "")]
+    faltantes = validacion.faltantes(datos)
     if faltantes:
         return jsonify(error=f"Faltan campos requeridos: {', '.join(faltantes)}"), 400
 
@@ -277,7 +265,7 @@ def agregar_productos():
     codigo_barras = _normalizar_codigo_barras(datos)
     datos["codigo_barras"] = codigo_barras  # "" -> None; no guardar cadena vacia
     if codigo_barras and _codigo_barras_en_conflicto(codigo_barras):
-        return jsonify(error="El codigo de barras ya esta en uso"), 400
+        return jsonify(error=validacion.MENSAJE_CODIGO_EN_USO), 400
 
     try:
         producto = productos_repo.crear(datos)
@@ -354,7 +342,7 @@ def actualizar_productos():
         codigo_barras = _normalizar_codigo_barras(datos)
         datos["codigo_barras"] = codigo_barras  # "" -> None
         if codigo_barras and _codigo_barras_en_conflicto(codigo_barras, id_):
-            return jsonify(error="El codigo de barras ya esta en uso"), 400
+            return jsonify(error=validacion.MENSAJE_CODIGO_EN_USO), 400
 
     productos_repo.actualizar(id_, datos)
     _ajustar_cantidad_si_cambio(id_, datos)

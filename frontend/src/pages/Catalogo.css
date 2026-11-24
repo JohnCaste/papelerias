@@ -42,6 +42,12 @@
   color: var(--lp-color-text-muted);
 }
 
+.catalogo-header__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lp-space-2);
+}
+
 /* ---------- botones base de la pantalla ---------- */
 .catalogo-btn {
   display: inline-flex;
@@ -346,6 +352,9 @@
   }
   .catalogo-header .catalogo-btn {
     width: 100%;
+  }
+  .catalogo-header__acciones {
+    flex-direction: column;
   }
 }
 

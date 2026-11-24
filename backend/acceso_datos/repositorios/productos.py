@@ -212,9 +212,8 @@ def obtener_por_codigo_barras(codigo: str):
     return ejecutar_uno(sql, {"codigo": codigo})
 
 
-def crear(datos: dict):
-    ahora = _ahora()
-    fila = {
+def _fila_nueva(datos: dict, ahora):
+    return {
         "id": str(uuid.uuid4()),
         "codigo_barras": datos.get("codigo_barras"),
         "codigo_interno": datos.get("codigo_interno"),
@@ -230,8 +229,68 @@ def crear(datos: dict):
         "creado_en": ahora,
         "actualizado_en": ahora,
     }
+
+
+def crear(datos: dict):
+    fila = _fila_nueva(datos, _ahora())
     insertar_filas(TABLA, [fila])
     return fila
+
+
+TAMANO_BLOQUE = 500  # bajo el limite recomendado de insertAll por peticion
+
+
+class ErrorInsercionParcial(Exception):
+    """Fallo un bloque de `crear_varios`. `creados` son las filas que SI se
+    insertaron antes del fallo (streaming no es transaccional, no se
+    revierten); `causa` es la excepcion original."""
+
+    def __init__(self, creados: list, causa: Exception):
+        super().__init__(str(causa))
+        self.creados = creados
+        self.causa = causa
+
+
+def crear_varios(lista: list, tamano_bloque: int = TAMANO_BLOQUE):
+    """
+    Alta en lote (importacion desde Excel). Arma cada fila igual que
+    `crear` -- el 'id' se genera una sola vez, asi que row_ids deduplica un
+    reintento inmediato -- e inserta por streaming en bloques. Si falla un
+    bloque se detiene y lanza ErrorInsercionParcial con lo ya creado.
+    """
+    ahora = _ahora()
+    filas = [_fila_nueva(datos, ahora) for datos in lista]
+    creados = []
+    for inicio in range(0, len(filas), tamano_bloque):
+        bloque = filas[inicio : inicio + tamano_bloque]
+        try:
+            insertar_filas(TABLA, bloque)
+        except Exception as error:  # noqa: BLE001 -- se reporta hasta donde se llego
+            raise ErrorInsercionParcial(creados, error) from error
+        creados.extend(bloque)
+    return creados
+
+
+def codigos_barras_existentes(codigos) -> set:
+    """Cuales de `codigos` ya usa un producto activo, en UNA consulta.
+    Siempre contra BigQuery (fuente de verdad), no el espejo local, que
+    puede ir atrasado un ciclo."""
+    codigos = sorted({c for c in codigos if c})
+    if not codigos:
+        return set()
+    sql = f"""
+        SELECT DISTINCT codigo_barras FROM `{TABLA}`
+        WHERE activo = TRUE AND codigo_barras IN UNNEST(@codigos)
+    """
+    filas = ejecutar_query(sql, {"codigos": codigos}, {"codigos": "STRING"})
+    return {fila["codigo_barras"] for fila in filas}
+
+
+def nombres_activos():
+    """Nombres de todos los productos activos (advertencia de posible
+    duplicado por nombre en la importacion)."""
+    sql = f"SELECT nombre FROM `{TABLA}` WHERE activo = TRUE"
+    return [fila["nombre"] for fila in ejecutar_query(sql)]
 
 
 _CAMPOS_EDITABLES = (

@@ -9,6 +9,7 @@ import {
   ChevronRight,
   AlertCircle,
   RefreshCw,
+  FileSpreadsheet,
 } from "lucide-react";
 import {
   buscarProductos,
@@ -18,6 +19,7 @@ import {
 import ProductoCard from "../components/ProductoCard";
 import ModalAgregarProducto from "../components/AgregarProModal";
 import ModalArticuloInexistente from "../components/ModalArticuloInexistente";
+import ModalImportarCatalogo from "../components/ModalImportarCatalogo";
 import { useScannerGun } from "../hooks/useScannerGun";
 import "./Catalogo.css";
 
@@ -59,6 +61,10 @@ const LIMIT = 12;
 
 function Catalogo({ filtro = "", rol = "admin" }: CatalogoProps) {
   const esAdmin = rol === "admin";
+  // Importar desde Excel: solo la dueña (el backend también responde 403).
+  // No se usa `esAdmin`, que hoy siempre es true (App no pasa `rol`).
+  const esDueno = localStorage.getItem("rol") === "dueno";
+  const [showImportar, setShowImportar] = useState(false);
   const navigate = useNavigate();
 
   const [productos, setProductos] = useState<Producto[]>([]);
@@ -213,17 +219,29 @@ function Catalogo({ filtro = "", rol = "admin" }: CatalogoProps) {
                 : "Sin productos"}
           </p>
         </div>
-        {esAdmin && (
-          <button
-            type="button"
-            className="catalogo-btn catalogo-btn--primary"
-            onClick={() => setShowAgregar(true)}
-            disabled={loading}
-          >
-            <Plus size={16} strokeWidth={2} />
-            Nuevo producto
-          </button>
-        )}
+        <div className="catalogo-header__acciones">
+          {esDueno && (
+            <button
+              type="button"
+              className="catalogo-btn catalogo-btn--outline"
+              onClick={() => setShowImportar(true)}
+            >
+              <FileSpreadsheet size={16} strokeWidth={2} />
+              Importar desde Excel
+            </button>
+          )}
+          {esAdmin && (
+            <button
+              type="button"
+              className="catalogo-btn catalogo-btn--primary"
+              onClick={() => setShowAgregar(true)}
+              disabled={loading}
+            >
+              <Plus size={16} strokeWidth={2} />
+              Nuevo producto
+            </button>
+          )}
+        </div>
       </header>
 
       {/* ---------- barra de filtros ---------- */}
@@ -425,6 +443,17 @@ function Catalogo({ filtro = "", rol = "admin" }: CatalogoProps) {
           onProductoAgregado={() => {
             setCodigoAltaInicial(undefined);
             recargarPagina();
+          }}
+        />
+      )}
+
+      {/* ---------- importación desde Excel (solo dueña) ---------- */}
+      {esDueno && (
+        <ModalImportarCatalogo
+          show={showImportar}
+          onHide={(huboImportacion) => {
+            setShowImportar(false);
+            if (huboImportacion) recargarPagina();
           }}
         />
       )}

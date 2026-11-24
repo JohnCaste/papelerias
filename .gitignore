@@ -102,3 +102,6 @@ api-venv/
 *.njsproj
 *.sln
 *.sw?
+
+# Valores reales para el exportador publico (scripts/exportar_publico.ps1)
+scripts/publico/*.local.txt

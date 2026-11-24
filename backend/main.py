@@ -29,6 +29,8 @@ from werkzeug.exceptions import HTTPException
 
 import autentificacion.credenciales as credenciales
 import catalogos.productos as productos
+import catalogos.importacion as importacion
+from autentificacion.permisos import requiere_dueno
 import ventas.cancelaciones as cancelaciones
 import ventas.capturas as capturas
 import ventas.ediciones as ediciones
@@ -274,6 +276,25 @@ def _registrar_rutas_api(app: Flask):
     @jwt_required(optional=False)
     def actualizarProductos():
         return productos.actualizar_productos()
+
+    # Importacion desde Excel/CSV: solo rol dueno (catalogos/importacion.py).
+    @app.route("/api/catalogo/importar/plantilla", methods=["GET"])
+    @jwt_required(optional=False)
+    @requiere_dueno
+    def plantillaImportacion():
+        return importacion.vista_plantilla()
+
+    @app.route("/api/catalogo/importar/previsualizar", methods=["POST"])
+    @jwt_required(optional=False)
+    @requiere_dueno
+    def previsualizarImportacion():
+        return importacion.vista_previsualizar()
+
+    @app.route("/api/catalogo/importar/confirmar", methods=["POST"])
+    @jwt_required(optional=False)
+    @requiere_dueno
+    def confirmarImportacion():
+        return importacion.vista_confirmar()
 
     # --------------------------------------------------- AGREGACIONES (#34)
 

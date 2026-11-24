@@ -245,3 +245,100 @@ export async function actualizarProducto(data: unknown) {
 
   return response.json();
 }
+
+// ----------------------------Importación desde Excel/CSV (solo rol dueno)
+// Ver backend/catalogos/importacion.py. Las rutas exigen JWT, así que la
+// descarga se hace con fetch + Blob (un <a href> simple no manda el token).
+
+export interface ProductoImportado {
+  nombre: string;
+  categoria: string;
+  precio: number;
+  codigo_barras: string | null;
+  codigo_interno: string | null;
+  marca: string | null;
+  descripcion: string | null;
+  costo: number | null;
+  cantidad: number | null;
+  stock_minimo: number | null;
+}
+
+export interface FilaValida {
+  fila: number;
+  producto: ProductoImportado;
+  advertencias: string[];
+}
+
+export interface FilaConError {
+  fila: number;
+  datos: Record<string, unknown>;
+  motivos: string[];
+}
+
+export interface VistaPreviaImportacion {
+  total: number;
+  validas: FilaValida[];
+  errores: FilaConError[];
+  advertencias: string[];
+}
+
+export interface ResultadoImportacion {
+  creados: number;
+  omitidos: { fila: number; motivos: string[] }[];
+  error?: string;
+}
+
+function tokenImportacion(): string {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("No hay token");
+  return token;
+}
+
+async function errorDeRespuesta(response: Response, defecto: string): Promise<Error> {
+  try {
+    const data = await response.json();
+    if (data?.error) return new Error(data.error);
+  } catch {
+    /* respuesta sin JSON */
+  }
+  return new Error(defecto);
+}
+
+export async function descargarPlantilla(): Promise<Blob> {
+  const response = await fetch(`${API}/catalogo/importar/plantilla`, {
+    headers: { Authorization: `Bearer ${tokenImportacion()}` },
+  });
+  if (!response.ok) throw await errorDeRespuesta(response, "No se pudo descargar la plantilla");
+  return response.blob();
+}
+
+export async function previsualizarImportacion(
+  archivo: File,
+): Promise<VistaPreviaImportacion> {
+  const datos = new FormData();
+  datos.append("archivo", archivo);
+  const response = await fetch(`${API}/catalogo/importar/previsualizar`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${tokenImportacion()}` },
+    body: datos,
+  });
+  if (!response.ok) throw await errorDeRespuesta(response, "No se pudo leer el archivo");
+  return response.json();
+}
+
+export async function confirmarImportacion(
+  filas: FilaValida[],
+): Promise<ResultadoImportacion> {
+  const response = await fetch(`${API}/catalogo/importar/confirmar`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${tokenImportacion()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      filas: filas.map((f) => ({ fila: f.fila, datos: f.producto })),
+    }),
+  });
+  if (!response.ok) throw await errorDeRespuesta(response, "No se pudo importar");
+  return response.json();
+}
