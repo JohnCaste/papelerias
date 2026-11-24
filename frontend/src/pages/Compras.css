@@ -1,0 +1,370 @@
+/* ==========================================================================
+   Compras de trabajadores. Solo tokens semánticos --lp-* de index.css.
+   ========================================================================== */
+
+.compras {
+  max-width: var(--lp-container-max);
+  margin: 0 auto;
+  padding: var(--lp-space-8) var(--lp-space-6) var(--lp-space-16);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--lp-space-6);
+  color: var(--lp-color-text);
+}
+
+/* ---------- encabezado ---------- */
+.compras-encabezado {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--lp-space-4);
+}
+.compras-encabezado h1 {
+  margin: 0;
+  font-size: var(--lp-font-size-2xl);
+  font-weight: var(--lp-font-weight-bold);
+  line-height: var(--lp-line-tight);
+}
+.compras-encabezado p {
+  margin: var(--lp-space-1) 0 0;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+
+.compras-pendientes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--lp-radius-pill);
+  background: var(--lp-color-warning-subtle);
+  color: var(--lp-color-warning-text);
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-semibold);
+}
+
+/* ---------- alertas ---------- */
+.compras-alerta {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-space-3);
+  padding: var(--lp-space-3) var(--lp-space-4);
+  border-radius: var(--lp-radius-lg);
+  font-size: var(--lp-font-size-sm);
+}
+.compras-alerta--error {
+  background: var(--lp-color-danger-subtle);
+  color: var(--lp-color-danger-text);
+}
+
+/* ---------- tarjetas resumen ---------- */
+.compras-resumen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--lp-space-4);
+}
+.compras-tarjeta {
+  display: grid;
+  gap: var(--lp-space-1);
+  padding: var(--lp-space-4) var(--lp-space-5);
+  border-radius: var(--lp-radius-xl);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  box-shadow: var(--lp-shadow-1);
+}
+.compras-tarjeta__etq {
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--lp-color-text-muted);
+}
+.compras-tarjeta__val {
+  font-size: var(--lp-font-size-2xl);
+  font-weight: var(--lp-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+.compras-tarjeta__val--destacado {
+  color: var(--lp-color-primary);
+}
+
+/* ---------- paneles ---------- */
+.compras-panel {
+  display: grid;
+  gap: var(--lp-space-4);
+  padding: var(--lp-space-5);
+  border-radius: var(--lp-radius-xl);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  box-shadow: var(--lp-shadow-1);
+  min-width: 0;
+}
+.compras-panel h2 {
+  margin: 0;
+  font-size: var(--lp-font-size-lg);
+  font-weight: var(--lp-font-weight-semibold);
+}
+
+/* ---------- formulario ---------- */
+.compras-alta__campos {
+  display: grid;
+  grid-template-columns: 2fr 3fr repeat(4, minmax(0, 1fr));
+  gap: var(--lp-space-3);
+}
+.compras-campo {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+}
+.compras-campo > span {
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text-muted);
+}
+.compras-alta__pie {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--lp-space-4);
+}
+.compras-alta__preview {
+  margin-right: auto;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.compras-alta__preview strong {
+  color: var(--lp-color-text);
+}
+.compras-negativo,
+.compras-alta__preview strong.compras-negativo {
+  color: var(--lp-color-danger-text);
+}
+.compras-error {
+  margin: 0;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-danger-text);
+}
+
+/* ---------- filtros ---------- */
+.compras-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--lp-space-3);
+}
+.compras-filtros .form-select {
+  width: auto;
+  min-width: 170px;
+}
+.compras-segmentos {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-bg);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+}
+.compras-segmentos button {
+  border: none;
+  background: transparent;
+  padding: 4px 12px;
+  border-radius: var(--lp-radius-md);
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-medium);
+  color: var(--lp-color-text-muted);
+  cursor: pointer;
+}
+.compras-segmentos button.activo {
+  background: var(--lp-color-surface);
+  color: var(--lp-color-text);
+  box-shadow: var(--lp-shadow-1);
+}
+
+/* ---------- tablas ---------- */
+.compras-tabla-wrap {
+  overflow-x: auto;
+  margin: 0 calc(-1 * var(--lp-space-5));
+  padding: 0 var(--lp-space-5);
+}
+.compras-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--lp-font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+.compras-tabla th {
+  padding: var(--lp-space-2) var(--lp-space-3);
+  text-align: left;
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--lp-color-text-muted);
+  border-bottom: var(--lp-border-width) solid var(--lp-color-border);
+  white-space: nowrap;
+}
+.compras-tabla td {
+  padding: var(--lp-space-3);
+  border-bottom: var(--lp-border-width) solid var(--lp-color-border);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.compras-tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+.compras-tabla tbody tr:hover {
+  background: var(--lp-color-bg);
+}
+.compras-tabla .num {
+  text-align: right;
+}
+.compras-tabla__producto {
+  white-space: normal !important;
+  min-width: 140px;
+}
+.compras-tabla__total {
+  font-weight: var(--lp-font-weight-bold);
+}
+.compras-muted {
+  color: var(--lp-color-text-muted);
+}
+
+.compras-estatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: var(--lp-radius-pill);
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-semibold);
+}
+.compras-estatus::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--lp-radius-circle);
+  background: currentColor;
+}
+.compras-estatus--pagado {
+  background: var(--lp-color-success-subtle);
+  color: var(--lp-color-success-text);
+}
+.compras-estatus--parcial {
+  background: var(--lp-color-warning-subtle);
+  color: var(--lp-color-warning-text);
+}
+.compras-estatus--pendiente {
+  background: var(--lp-color-bg);
+  color: var(--lp-color-text-muted);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+}
+
+.compras-acciones {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--lp-space-1);
+}
+.compras-acciones .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.compras-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid transparent;
+  background: transparent;
+  color: var(--lp-color-text-muted);
+  cursor: pointer;
+}
+.compras-icono:hover {
+  background: var(--lp-color-bg);
+  color: var(--lp-color-text);
+}
+.compras-icono--peligro:hover {
+  background: var(--lp-color-danger-subtle);
+  color: var(--lp-color-danger-text);
+}
+.compras-icono:focus-visible,
+.compras-segmentos button:focus-visible {
+  outline: none;
+  box-shadow: var(--lp-focus-ring);
+}
+
+.compras-vacio {
+  margin: 0;
+  padding: var(--lp-space-6) 0;
+  text-align: center;
+  color: var(--lp-color-text-muted);
+  font-size: var(--lp-font-size-sm);
+}
+
+/* ---------- modales ---------- */
+.compras-modal {
+  display: grid;
+  gap: var(--lp-space-4);
+}
+.compras-modal p {
+  margin: 0;
+}
+.compras-modal__contexto {
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.compras-modal__contexto strong {
+  color: var(--lp-color-text);
+}
+.compras-modal__campos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--lp-space-3);
+}
+.compras-modal__campos--edicion .compras-campo--nombre,
+.compras-modal__campos--edicion .compras-campo--producto {
+  grid-column: 1 / -1;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 992px) {
+  .compras-alta__campos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .compras-campo--nombre,
+  .compras-campo--producto {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .compras {
+    padding: var(--lp-space-5) var(--lp-space-4) var(--lp-space-12);
+    gap: var(--lp-space-4);
+  }
+  .compras-resumen {
+    grid-template-columns: 1fr;
+    gap: var(--lp-space-3);
+  }
+  .compras-panel {
+    padding: var(--lp-space-4);
+  }
+  .compras-tabla-wrap {
+    margin: 0 calc(-1 * var(--lp-space-4));
+    padding: 0 var(--lp-space-4);
+  }
+  .compras-filtros .form-select {
+    flex: 1 1 140px;
+    min-width: 0;
+  }
+  .compras-alta__pie .btn {
+    width: 100%;
+  }
+}

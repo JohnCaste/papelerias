@@ -1,0 +1,51 @@
+/* Foundations / styleguide — recreación de "Foundations lapape.dc.html".
+   Tokens en frontend/src/index.css. El tema oscuro se aplica scopeado al
+   wrapper .lp-foundations[data-theme="dark"] (no toca el resto de la app). */
+
+.lp-foundations {
+  min-height: 100vh;
+  background: var(--lp-color-bg);
+  color: var(--lp-color-text);
+  font-family: var(--lp-font-sans);
+  line-height: var(--lp-line-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+.lp-foundations a {
+  color: var(--lp-color-link);
+  text-decoration: none;
+}
+.lp-foundations a:hover {
+  color: var(--lp-color-primary);
+  text-decoration: underline;
+}
+
+.lp-foundations *,
+.lp-foundations *::before,
+.lp-foundations *::after {
+  box-sizing: border-box;
+}
+
+.lp-foundations__nav a:hover {
+  color: var(--lp-color-primary);
+}
+
+.lp-foundations__theme-btn:hover {
+  background: var(--lp-color-bg);
+  border-color: var(--lp-color-primary);
+}
+
+@keyframes lp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes lp-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}

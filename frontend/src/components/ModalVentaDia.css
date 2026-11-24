@@ -1,0 +1,339 @@
+/* ==========================================================================
+   ModalVentaDia · handoff "Ventas lapape.dc.html" · artboard 2c.
+   Tokens semánticos --lp-* (index.css). El .modal-content ya trae radius-xl +
+   shadow-4 + surface desde el puente de index.css; acá va el contenido.
+   ========================================================================== */
+
+.mvd.modal-content {
+  overflow: hidden;
+}
+
+/* ---------- header ---------- */
+.mvd__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--lp-space-4);
+  padding: 18px 22px;
+  border-bottom: var(--lp-border-width) solid var(--lp-color-border);
+}
+
+.mvd__title {
+  display: block;
+  font-size: var(--lp-font-size-xl);
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text);
+}
+
+.mvd__estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12.5px;
+  font-weight: var(--lp-font-weight-semibold);
+}
+
+.mvd__estado--ok {
+  color: var(--lp-color-success-text);
+}
+.mvd__estado--sin {
+  color: var(--lp-color-danger-text);
+}
+
+.mvd__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: var(--lp-radius-circle);
+  background: currentColor;
+}
+
+.mvd__x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid transparent;
+  background: transparent;
+  color: var(--lp-color-text-muted);
+  cursor: pointer;
+}
+.mvd__x:hover:not(:disabled) {
+  background: var(--lp-color-bg);
+}
+.mvd__x:disabled {
+  opacity: var(--lp-opacity-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- aviso ---------- */
+.mvd__aviso {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 16px 22px 0;
+  padding: 12px 14px;
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-info-subtle);
+  border-left: 4px solid var(--lp-color-info);
+  color: var(--lp-color-info-text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.mvd__aviso svg {
+  flex: none;
+  margin-top: 2px;
+}
+.mvd__aviso--error {
+  background: var(--lp-color-danger-subtle);
+  border-left-color: var(--lp-color-danger);
+  color: var(--lp-color-danger-text);
+}
+
+/* ---------- body / tabla ---------- */
+.mvd__body {
+  padding: 18px 22px;
+}
+
+.mvd__tabla {
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  overflow: hidden;
+  transition: opacity var(--lp-duration-base) var(--lp-ease-standard);
+}
+.mvd__tabla[data-guardando] {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.mvd__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: var(--lp-border-width) solid var(--lp-color-border);
+}
+.mvd__row:last-child {
+  border-bottom: none;
+}
+
+.mvd__row--head {
+  background: var(--lp-color-bg);
+  font-size: 11.5px;
+  font-weight: var(--lp-font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- totales (Total general · Gastos · Total con descuento) ---------- */
+.mvd__totales {
+  display: flex;
+  align-items: stretch;
+  gap: 1px;
+  margin-top: 14px;
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  overflow: hidden;
+  background: var(--lp-color-border);
+  transition: opacity var(--lp-duration-base) var(--lp-ease-standard);
+}
+.mvd__totales[data-guardando] {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.mvd__totales-item {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  padding: 12px 16px;
+  background: var(--lp-color-bg);
+  min-width: 0;
+}
+
+.mvd__totales-item--final {
+  background: var(--lp-color-info-subtle);
+}
+
+.mvd__totales-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: var(--lp-font-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lp-color-text-muted);
+}
+
+.mvd__totales-valor {
+  font-size: 17px;
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+  font-variant-numeric: tabular-nums;
+}
+.mvd__totales-valor--final {
+  color: var(--lp-color-primary);
+}
+
+.mvd__totales-item--gasto .mvd__input input {
+  height: 34px;
+}
+
+.mvd__cat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text);
+}
+
+.mvd__dirty {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--lp-radius-circle);
+  background: var(--lp-color-primary);
+}
+
+.mvd__input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.mvd__prefix {
+  position: absolute;
+  left: 10px;
+  font-size: 13px;
+  color: var(--lp-color-text-muted);
+}
+.mvd__input input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px 0 22px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid var(--lp-color-border-strong);
+  background: var(--lp-color-surface);
+  color: var(--lp-color-text);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+.mvd__input input:disabled {
+  background: var(--lp-color-disabled-bg);
+  color: var(--lp-color-disabled-text);
+}
+
+/* ---------- footer ---------- */
+.mvd__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 22px;
+  border-top: var(--lp-border-width) solid var(--lp-color-border);
+  background: var(--lp-color-bg);
+}
+.mvd__foot-right {
+  display: flex;
+  gap: 10px;
+}
+
+.mvd__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--lp-control-height-md);
+  padding: 0 16px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid transparent;
+  font-family: inherit;
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-semibold);
+  cursor: pointer;
+  transition: background var(--lp-duration-base) var(--lp-ease-standard);
+}
+.mvd__btn:disabled {
+  cursor: not-allowed;
+}
+
+.mvd__btn--limpiar {
+  padding: 0 14px;
+  border-color: var(--lp-color-danger);
+  background: transparent;
+  color: var(--lp-color-danger);
+  font-size: 13.5px;
+}
+.mvd__btn--limpiar:hover:not(:disabled) {
+  background: var(--lp-color-danger-subtle);
+}
+.mvd__btn--limpiar:disabled {
+  opacity: var(--lp-opacity-disabled);
+}
+
+.mvd__btn--cancelar {
+  background: transparent;
+  color: var(--lp-color-text);
+}
+.mvd__btn--cancelar:hover:not(:disabled) {
+  background: var(--lp-color-surface);
+}
+.mvd__btn--cancelar:disabled {
+  color: var(--lp-color-disabled-text);
+}
+
+.mvd__btn--guardar {
+  background: var(--lp-color-primary);
+  color: var(--lp-color-primary-text);
+}
+.mvd__btn--guardar:hover:not(:disabled) {
+  background: var(--lp-color-primary-hover);
+}
+.mvd__btn--guardar:disabled {
+  background: var(--lp-color-disabled-bg);
+  color: var(--lp-color-disabled-text);
+}
+.mvd__btn--guardar[data-guardando] {
+  background: var(--lp-color-primary);
+  color: var(--lp-color-primary-text);
+  opacity: var(--lp-opacity-loading);
+  cursor: progress;
+}
+
+.mvd__spin {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--lp-radius-circle);
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: lp-spin 700ms linear infinite;
+}
+
+@keyframes lp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 575px) {
+  .mvd__row {
+    grid-template-columns: minmax(0, 1fr) 128px;
+  }
+  .mvd__totales {
+    flex-direction: column;
+    gap: var(--lp-border-width);
+  }
+  .mvd__foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mvd__foot-right {
+    justify-content: flex-end;
+  }
+}

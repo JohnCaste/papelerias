@@ -1,0 +1,424 @@
+/* ==========================================================================
+   lapape · design tokens
+   Fuente: página de foundations (Claude Design) — bundle "Foundations lapape".
+   Primitivos      = escalas crudas, no cambian con el tema.
+   Semánticos      = decisiones (--lp-color-*), cambian con [data-theme="dark"].
+   La UI consume SOLO tokens semánticos; nunca un primitivo directo ni un hex suelto.
+   ========================================================================== */
+
+:root {
+  /* ---------- PRIMITIVOS · color ---------- */
+  --lp-green-50:  #EEF8F0;
+  --lp-green-100: #D2EFD8;
+  --lp-green-200: #A6DFB3;
+  --lp-green-300: #74C888;
+  --lp-green-400: #47B15F;
+  --lp-green-500: #309C43;   /* base de marca */
+  --lp-green-600: #268038;
+  --lp-green-700: #1F672E;
+  --lp-green-800: #1A5527;
+  --lp-green-900: #164421;
+
+  --lp-blue-50:  #EEF4FF;
+  --lp-blue-100: #D9E6FF;
+  --lp-blue-200: #B3CCFF;
+  --lp-blue-300: #85AEFF;
+  --lp-blue-400: #558CF7;
+  --lp-blue-500: #2563EB;
+  --lp-blue-600: #1E4FD8;
+  --lp-blue-700: #1B41B0;
+  --lp-blue-800: #1B388C;
+  --lp-blue-900: #1B3270;
+
+  --lp-gray-0:   #FFFFFF;
+  --lp-gray-50:  #F8FAFC;
+  --lp-gray-100: #F1F5F9;
+  --lp-gray-200: #E2E8F0;
+  --lp-gray-300: #CBD5E1;
+  --lp-gray-400: #94A3B8;
+  --lp-gray-500: #64748B;
+  --lp-gray-600: #475569;
+  --lp-gray-700: #334155;
+  --lp-gray-800: #1E293B;
+  --lp-gray-900: #0F172A;
+
+  --lp-success-100: #CCFBF1;   /* teal: se separa del verde de marca */
+  --lp-success-500: #0D9488;
+  --lp-success-700: #0F766E;
+  --lp-danger-100:  #FEE2E2;
+  --lp-danger-500:  #DC2626;
+  --lp-danger-700:  #B91C1C;
+  --lp-warning-100: #FEF3C7;
+  --lp-warning-500: #D97706;
+  --lp-warning-700: #B45309;
+  --lp-info-100:    #D9E6FF;
+  --lp-info-500:    #2563EB;
+  --lp-info-700:    #1B41B0;
+
+  /* ---------- PRIMITIVOS · tipografía ---------- */
+  --lp-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --lp-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --lp-font-size-xs:  12px;
+  --lp-font-size-sm:  14px;
+  --lp-font-size-md:  16px;
+  --lp-font-size-lg:  18px;
+  --lp-font-size-xl:  20px;
+  --lp-font-size-2xl: 24px;
+  --lp-font-size-3xl: 30px;
+  --lp-font-size-4xl: 40px;
+
+  --lp-font-weight-regular:  400;
+  --lp-font-weight-medium:   500;
+  --lp-font-weight-semibold: 600;
+  --lp-font-weight-bold:     700;
+
+  --lp-line-tight:   1.2;
+  --lp-line-snug:    1.35;
+  --lp-line-normal:  1.5;
+  --lp-line-relaxed: 1.65;
+
+  /* ---------- PRIMITIVOS · espaciado (base 4) ---------- */
+  --lp-space-0:  0;
+  --lp-space-1:  4px;
+  --lp-space-2:  8px;
+  --lp-space-3:  12px;
+  --lp-space-4:  16px;
+  --lp-space-5:  20px;
+  --lp-space-6:  24px;
+  --lp-space-8:  32px;
+  --lp-space-10: 40px;
+  --lp-space-12: 48px;
+  --lp-space-16: 64px;
+
+  /* ---------- PRIMITIVOS · radios ---------- */
+  --lp-radius-sm:     4px;
+  --lp-radius-md:     6px;
+  --lp-radius-lg:     8px;
+  --lp-radius-xl:     12px;
+  --lp-radius-pill:   999px;
+  --lp-radius-circle: 50%;
+
+  /* ---------- PRIMITIVOS · bordes ---------- */
+  --lp-border-width:        1px;
+  --lp-border-width-strong: 2px;
+
+  /* ---------- PRIMITIVOS · motion ---------- */
+  --lp-duration-fast: 120ms;
+  --lp-duration-base: 180ms;
+  --lp-duration-slow: 280ms;
+  --lp-ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --lp-ease-out:      cubic-bezier(0, 0, .2, 1);
+
+  /* ---------- PRIMITIVOS · z-index ---------- */
+  --lp-z-dropdown: 1000;
+  --lp-z-sticky:   1020;
+  --lp-z-fixed:    1030;
+  --lp-z-backdrop: 1040;
+  --lp-z-modal:    1050;
+  --lp-z-popover:  1060;
+  --lp-z-toast:    1080;
+
+  /* ---------- PRIMITIVOS · layout ---------- */
+  --lp-container-max: 1200px;
+  --lp-bp-sm: 576px;
+  --lp-bp-md: 768px;
+  --lp-bp-lg: 992px;
+  --lp-bp-xl: 1200px;
+
+  /* ---------- PRIMITIVOS · dimensiones de control ---------- */
+  --lp-control-height-sm: 32px;
+  --lp-control-height-md: 40px;   /* alto por defecto de button / input / select */
+  --lp-control-height-lg: 48px;
+  --lp-control-pad-x-sm: 12px;
+  --lp-control-pad-x-md: 16px;
+  --lp-control-pad-x-lg: 22px;
+
+  /* ---------- PRIMITIVOS · íconos (lucide-react) ---------- */
+  --lp-icon-size-sm: 14px;
+  --lp-icon-size-md: 16px;   /* tamaño por defecto */
+  --lp-icon-size-lg: 18px;
+  --lp-icon-stroke: 2;
+
+  /* ---------- PRIMITIVOS · opacidad ---------- */
+  --lp-opacity-disabled: 0.55;
+  --lp-opacity-loading:  0.85;
+  --lp-opacity-muted:    0.7;
+
+  /* ---------- SEMÁNTICOS · tema claro ---------- */
+  --lp-color-bg:              var(--lp-gray-50);
+  --lp-color-surface:         var(--lp-gray-0);
+  --lp-color-surface-raised:  var(--lp-gray-0);
+  --lp-color-border:          var(--lp-gray-200);
+  --lp-color-border-strong:   var(--lp-gray-300);
+  --lp-color-text:            var(--lp-gray-900);
+  --lp-color-text-muted:      var(--lp-gray-500);
+  --lp-color-text-inverse:    var(--lp-gray-0);
+
+  --lp-color-primary:         var(--lp-green-600);   /* 600 y no 500: blanco encima pasa AA (4.96:1) */
+  --lp-color-primary-hover:   var(--lp-green-700);
+  --lp-color-primary-text:    var(--lp-gray-0);
+  --lp-color-primary-rgb:     38, 128, 56;           /* green-600 — para rgba() de Bootstrap */
+  --lp-color-secondary:       var(--lp-blue-500);
+  --lp-color-secondary-hover: var(--lp-blue-600);
+  --lp-color-link:            var(--lp-blue-600);
+
+  --lp-color-focus-ring:      rgba(48, 156, 67, .45);
+
+  --lp-color-success:         var(--lp-success-500);
+  --lp-color-danger:          var(--lp-danger-500);
+  --lp-color-danger-rgb:      220, 38, 38;
+  --lp-color-warning:         var(--lp-warning-500);
+  --lp-color-info:            var(--lp-info-500);
+  --lp-color-info-rgb:        37, 99, 235;           /* info-500 / blue-500 — para rgba() de Bootstrap */
+  --lp-color-success-subtle:  var(--lp-success-100);
+  --lp-color-danger-subtle:   var(--lp-danger-100);
+  --lp-color-warning-subtle:  var(--lp-warning-100);
+  --lp-color-info-subtle:     var(--lp-info-100);
+  --lp-color-success-text:    var(--lp-success-700);
+  --lp-color-danger-text:     var(--lp-danger-700);
+  --lp-color-warning-text:    var(--lp-warning-700);
+  --lp-color-info-text:       var(--lp-info-700);
+
+  --lp-color-disabled-bg:     var(--lp-gray-200);
+  --lp-color-disabled-text:   var(--lp-gray-400);
+  --lp-color-overlay:         rgba(15, 23, 42, .45);
+
+  /* ---------- SEMÁNTICOS · elevación ---------- */
+  --lp-shadow-1: 0 1px 2px rgba(15, 23, 42, .06);
+  --lp-shadow-2: 0 4px 12px rgba(15, 23, 42, .10);
+  --lp-shadow-3: 0 10px 24px rgba(15, 23, 42, .14);
+  --lp-shadow-4: 0 20px 48px rgba(15, 23, 42, .18);
+
+  /* ---------- SEMÁNTICOS · foco ---------- */
+  --lp-focus-ring: 0 0 0 3px var(--lp-color-focus-ring);
+}
+
+[data-theme="dark"] {
+  --lp-color-bg:              var(--lp-gray-900);
+  --lp-color-surface:         var(--lp-gray-800);
+  --lp-color-surface-raised:  var(--lp-gray-700);
+  --lp-color-border:          var(--lp-gray-700);
+  --lp-color-border-strong:   var(--lp-gray-600);
+  --lp-color-text:            var(--lp-gray-50);
+  --lp-color-text-muted:      var(--lp-gray-400);
+  --lp-color-text-inverse:    var(--lp-gray-900);
+
+  --lp-color-primary:         var(--lp-green-400);
+  --lp-color-primary-hover:   var(--lp-green-300);
+  --lp-color-primary-text:    var(--lp-gray-900);
+  --lp-color-primary-rgb:     71, 177, 95;           /* green-400 */
+  --lp-color-secondary:       var(--lp-blue-400);
+  --lp-color-secondary-hover: var(--lp-blue-300);
+  --lp-color-link:            var(--lp-blue-300);
+
+  --lp-color-focus-ring:      rgba(71, 177, 95, .55);
+
+  --lp-color-success-subtle:  rgba(15, 118, 110, .25);
+  --lp-color-danger-subtle:   rgba(185, 28, 28, .25);
+  --lp-color-warning-subtle:  rgba(180, 83, 9, .25);
+  --lp-color-info-subtle:     rgba(27, 65, 176, .25);
+  --lp-color-success-text:    #5EEAD4;
+  --lp-color-danger-text:     #FCA5A5;
+  --lp-color-warning-text:    #FCD34D;
+  --lp-color-info-text:       var(--lp-blue-300);
+
+  --lp-color-disabled-bg:     var(--lp-gray-700);
+  --lp-color-disabled-text:   var(--lp-gray-500);
+  --lp-color-overlay:         rgba(15, 23, 42, .65);
+
+  --lp-shadow-1: 0 1px 2px rgba(15, 23, 42, .10);
+  --lp-shadow-2: 0 4px 12px rgba(15, 23, 42, .16);
+  --lp-shadow-3: 0 10px 24px rgba(15, 23, 42, .22);
+  --lp-shadow-4: 0 20px 48px rgba(15, 23, 42, .29);
+}
+
+/* ==========================================================================
+   React-Bootstrap 5.3 · puente --bs-* → --lp-*
+   Se importa DESPUÉS de bootstrap.min.css (ver main.tsx) para ganar la cascada.
+   Nota: en Bootstrap 5.3 los colores de variante (.btn-primary, .alert-*, …)
+   son literales compilados desde Sass, así que además del :root hay overrides
+   por componente más abajo.
+   ========================================================================== */
+:root {
+  --bs-primary:            var(--lp-color-primary);
+  --bs-primary-rgb:        var(--lp-color-primary-rgb);
+  --bs-secondary:          var(--lp-color-secondary);
+  --bs-success:            var(--lp-color-success);
+  --bs-danger:             var(--lp-color-danger);
+  --bs-danger-rgb:         var(--lp-color-danger-rgb);
+  --bs-warning:            var(--lp-color-warning);
+  --bs-info:               var(--lp-color-info);
+  --bs-info-rgb:           var(--lp-color-info-rgb);
+
+  --bs-body-bg:            var(--lp-color-bg);
+  --bs-body-color:         var(--lp-color-text);
+  --bs-emphasis-color:     var(--lp-color-text);
+  --bs-secondary-color:    var(--lp-color-text-muted);
+  --bs-tertiary-bg:        var(--lp-color-surface-raised);
+  --bs-border-color:       var(--lp-color-border);
+
+  --bs-body-font-family:   var(--lp-font-sans);
+  --bs-font-sans-serif:    var(--lp-font-sans);
+  --bs-body-font-size:     var(--lp-font-size-md);
+
+  --bs-border-radius:      var(--lp-radius-md);
+  --bs-border-radius-sm:   var(--lp-radius-sm);
+  --bs-border-radius-lg:   var(--lp-radius-lg);
+  --bs-border-radius-xl:   var(--lp-radius-xl);
+
+  --bs-link-color:         var(--lp-color-link);
+  --bs-link-color-rgb:     var(--lp-color-primary-rgb);
+  --bs-link-hover-color:   var(--lp-color-primary);
+
+  --bs-box-shadow-sm:      var(--lp-shadow-1);
+  --bs-box-shadow:         var(--lp-shadow-2);
+  --bs-box-shadow-lg:      var(--lp-shadow-3);
+}
+
+/* ---- overrides por componente (los que la app renderiza hoy) ---- */
+.btn {
+  --bs-btn-border-radius: var(--lp-radius-md);
+  --bs-btn-focus-shadow-rgb: var(--lp-color-primary-rgb);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--lp-color-primary);
+  --bs-btn-border-color: var(--lp-color-primary);
+  --bs-btn-color: var(--lp-color-primary-text);
+  --bs-btn-hover-bg: var(--lp-color-primary-hover);
+  --bs-btn-hover-border-color: var(--lp-color-primary-hover);
+  --bs-btn-hover-color: var(--lp-color-primary-text);
+  --bs-btn-active-bg: var(--lp-color-primary-hover);
+  --bs-btn-active-border-color: var(--lp-color-primary-hover);
+  --bs-btn-active-color: var(--lp-color-primary-text);
+  --bs-btn-disabled-bg: var(--lp-color-primary);
+  --bs-btn-disabled-border-color: var(--lp-color-primary);
+  --bs-btn-disabled-color: var(--lp-color-primary-text);
+}
+
+.btn-secondary {
+  --bs-btn-bg: var(--lp-color-secondary);
+  --bs-btn-border-color: var(--lp-color-secondary);
+  --bs-btn-color: var(--lp-color-text-inverse);
+  --bs-btn-hover-bg: var(--lp-color-secondary-hover);
+  --bs-btn-hover-border-color: var(--lp-color-secondary-hover);
+  --bs-btn-hover-color: var(--lp-color-text-inverse);
+  --bs-btn-active-bg: var(--lp-color-secondary-hover);
+  --bs-btn-active-border-color: var(--lp-color-secondary-hover);
+}
+
+.btn-danger {
+  --bs-btn-bg: var(--lp-color-danger);
+  --bs-btn-border-color: var(--lp-color-danger);
+  --bs-btn-hover-bg: var(--lp-color-danger-text);
+  --bs-btn-hover-border-color: var(--lp-color-danger-text);
+  --bs-btn-active-bg: var(--lp-color-danger-text);
+  --bs-btn-active-border-color: var(--lp-color-danger-text);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--lp-color-primary);
+  --bs-btn-border-color: var(--lp-color-primary);
+  --bs-btn-hover-bg: var(--lp-color-primary);
+  --bs-btn-hover-border-color: var(--lp-color-primary);
+  --bs-btn-hover-color: var(--lp-color-primary-text);
+  --bs-btn-active-bg: var(--lp-color-primary);
+  --bs-btn-active-border-color: var(--lp-color-primary);
+}
+
+/* `info` = azul del sistema (--lp-color-info === blue-500). Se usa para
+   estados informativos como la venta "editada", que debe distinguirse del
+   verde de `primary`. Bootstrap 5.3 compila .text-bg-* / .btn-*-info como
+   literales, así que hay que redefinirlos aquí igual que con `primary`. */
+.text-bg-info {
+  color: var(--lp-color-text-inverse) !important;
+  background-color: var(--lp-color-info) !important;
+}
+
+.btn-info {
+  --bs-btn-bg: var(--lp-color-info);
+  --bs-btn-border-color: var(--lp-color-info);
+  --bs-btn-color: var(--lp-color-text-inverse);
+  --bs-btn-hover-bg: var(--lp-color-secondary-hover);
+  --bs-btn-hover-border-color: var(--lp-color-secondary-hover);
+  --bs-btn-hover-color: var(--lp-color-text-inverse);
+  --bs-btn-active-bg: var(--lp-color-secondary-hover);
+  --bs-btn-active-border-color: var(--lp-color-secondary-hover);
+}
+
+.btn-outline-info {
+  --bs-btn-color: var(--lp-color-info);
+  --bs-btn-border-color: var(--lp-color-info);
+  --bs-btn-hover-bg: var(--lp-color-info);
+  --bs-btn-hover-border-color: var(--lp-color-info);
+  --bs-btn-hover-color: var(--lp-color-text-inverse);
+  --bs-btn-active-bg: var(--lp-color-info);
+  --bs-btn-active-border-color: var(--lp-color-info);
+  --bs-btn-active-color: var(--lp-color-text-inverse);
+}
+
+.form-control,
+.form-select {
+  border-color: var(--lp-color-border-strong);
+  border-radius: var(--lp-radius-md);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--lp-color-primary);
+  box-shadow: var(--lp-focus-ring);
+}
+
+.modal-content {
+  border-radius: var(--lp-radius-xl);
+  box-shadow: var(--lp-shadow-4);
+  /* -raised (no -surface): en oscuro el modal queda un escalón por encima del
+     fondo de página y se lee como panel; en claro ambos son blanco. */
+  background: var(--lp-color-surface-raised);
+  color: var(--lp-color-text);
+}
+
+/* Backdrop: tono pizarra semitransparente (--lp-color-overlay ya trae el alfa
+   afinado por tema: .45 claro / .65 oscuro) en vez del negro 50 % de Bootstrap,
+   que en móvil se veía casi como pantalla negra. */
+.modal-backdrop {
+  --bs-backdrop-bg: var(--lp-color-overlay);
+  --bs-backdrop-opacity: 1;
+}
+
+/* ==========================================================================
+   Foco global — nunca se quita el outline "para que quede prolijo".
+   ========================================================================== */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: var(--lp-border-width-strong) solid var(--lp-color-primary);
+  outline-offset: 2px;
+  box-shadow: var(--lp-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Base heredada — migrada a tokens. El resto del CSS por pantalla se
+   convierte en sus propios PRs (Login, Menú, Catálogo, …).
+   ========================================================================== */
+body {
+  margin: 0;
+}
+
+a {
+  font-weight: 500;
+  color: var(--lp-color-link);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--lp-color-primary);
+}

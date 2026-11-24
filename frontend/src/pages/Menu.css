@@ -1,0 +1,200 @@
+/* Navbar del shell autenticado — rediseño (handoff "Login lapape.dc.html", artboard 3d).
+   Opción A: barra verde de marca. El componente usa <Navbar data-bs-theme="dark">;
+   acá se redefinen los tokens de navbar/dropdown de Bootstrap en términos de --lp-*.
+   Los selectores usan [data-bs-theme="dark"] para empatar la especificidad de
+   la regla `.navbar-dark, .navbar[data-bs-theme="dark"]` de Bootstrap. */
+
+.lp-navbar {
+  --bs-navbar-padding-y: 0;
+  min-height: 56px;
+  background-color: var(--lp-color-primary);
+  box-shadow: var(--lp-shadow-2);
+}
+
+.lp-navbar .container,
+.lp-navbar .container-fluid {
+  min-height: 56px;
+  gap: var(--lp-space-6);
+}
+
+/* Contenedor un poco más ancho que el `.container` estándar de Bootstrap. */
+.lp-navbar__container {
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: var(--lp-space-6);
+}
+
+.lp-navbar[data-bs-theme="dark"] {
+  --bs-navbar-color: rgba(255, 255, 255, 0.9);
+  --bs-navbar-hover-color: var(--lp-color-primary-text);
+  --bs-navbar-active-color: var(--lp-color-primary-text);
+  --bs-navbar-brand-color: var(--lp-color-primary-text);
+  --bs-navbar-brand-hover-color: var(--lp-color-primary-text);
+  --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Brand: logo en cápsula clara + wordmark ---- */
+.lp-navbar .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lp-space-2);
+  font-size: var(--lp-font-size-lg);
+  font-weight: var(--lp-font-weight-bold);
+  letter-spacing: -0.01em;
+}
+
+.lp-navbar .navbar-brand img {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--lp-radius-md);
+  background: var(--lp-color-surface);
+  padding: 3px;
+  object-fit: contain;
+}
+
+/* Sucursal: cápsula discreta junto al wordmark. */
+.lp-navbar__sucursal {
+  margin-left: var(--lp-space-1);
+  padding: 2px var(--lp-space-2);
+  border-radius: var(--lp-radius-pill);
+  background: rgba(255, 255, 255, 0.18);
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-semibold);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+/* Usuario logueado (foto + nombre) agrupados, junto al toggle de tema
+   -- deliberadamente lejos del brand para no confundirlo con el logo. */
+.lp-navbar__usuario {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lp-space-2);
+}
+
+.lp-navbar__usuario .lp-navbar__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--lp-radius-circle);
+  object-fit: cover;
+  border: var(--lp-border-width) solid rgba(255, 255, 255, 0.6);
+}
+
+.lp-navbar__usuario-nombre {
+  color: var(--lp-gray-0);
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-medium);
+  white-space: nowrap;
+}
+
+/* ---- Links ---- */
+.lp-navbar .navbar-nav .nav-link {
+  padding: var(--lp-space-2) var(--lp-space-3);
+  border-radius: var(--lp-radius-md);
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-medium);
+  transition: background var(--lp-duration-fast) var(--lp-ease-standard);
+}
+
+.lp-navbar .navbar-nav .nav-link:hover,
+.lp-navbar .navbar-nav .nav-link:focus-visible,
+.lp-navbar .navbar-nav .nav-link.active {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ---- Toggle "Usuarios": pill con borde claro ---- */
+.lp-navbar .navbar-nav .dropdown-toggle.nav-link {
+  border: var(--lp-border-width) solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--lp-radius-pill);
+  padding: var(--lp-space-1) var(--lp-space-3);
+}
+
+/* Etiqueta "Usuarios" en blanco puro (primitivo --lp-gray-0). */
+.lp-navbar__usuarios .dropdown-toggle.nav-link {
+  color: var(--lp-gray-0);
+}
+
+/* ---- Toggle "Modo claro / oscuro": pill igual que "Usuarios" ---- */
+.lp-navbar__theme {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lp-space-2);
+  padding: var(--lp-space-1) var(--lp-space-3);
+  border: var(--lp-border-width) solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--lp-radius-pill);
+  background: transparent;
+  color: var(--lp-gray-0);
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--lp-duration-fast) var(--lp-ease-standard);
+}
+
+.lp-navbar__theme:hover,
+.lp-navbar__theme:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.lp-navbar__theme-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--lp-radius-circle);
+  background: var(--lp-gray-0);
+}
+
+/* ---- Dropdown "Usuario": panel claro elevado ---- */
+.lp-navbar .dropdown-menu {
+  --bs-dropdown-bg: var(--lp-color-surface);
+  --bs-dropdown-color: var(--lp-color-text);
+  --bs-dropdown-link-color: var(--lp-color-text);
+  --bs-dropdown-link-hover-bg: var(--lp-color-bg);
+  --bs-dropdown-link-hover-color: var(--lp-color-text);
+  --bs-dropdown-link-active-bg: var(--lp-color-primary);
+  --bs-dropdown-link-active-color: var(--lp-color-primary-text);
+  --bs-dropdown-border-color: var(--lp-color-border);
+  padding: var(--lp-space-1);
+  border-radius: var(--lp-radius-lg);
+  box-shadow: var(--lp-shadow-3);
+}
+
+.lp-navbar .dropdown-item {
+  border-radius: var(--lp-radius-md);
+}
+
+.lp-navbar .dropdown-item.lp-navbar__salir {
+  color: var(--lp-color-danger-text);
+}
+
+/* Faltantes: contador de pendientes junto al link. */
+.lp-navbar .lp-navbar__faltantes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lp-navbar__contador {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  border-radius: var(--lp-radius-pill);
+  background: var(--lp-gray-0);
+  color: var(--lp-green-700);
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-bold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Entre lg y xl la barra ya no cabe con todos los links (Faltantes la
+   empujó ~40px a 1024px): se aprietan los espacios en vez de desbordar. */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .lp-navbar .container,
+  .lp-navbar .container-fluid {
+    gap: var(--lp-space-3);
+  }
+  .lp-navbar .navbar-nav .nav-link {
+    padding-inline: var(--lp-space-2);
+  }
+}

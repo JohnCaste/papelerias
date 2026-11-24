@@ -1,0 +1,187 @@
+/* Login — rediseño (handoff "Login lapape.dc.html").
+   Sin navbar en /. Consume solo tokens semánticos --lp-*. Ver frontend/src/index.css. */
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lp-space-8);
+  padding: var(--lp-space-6);
+  background-color: var(--lp-gray-800);
+
+  /* El fondo del login es siempre oscuro (gray-800), en ambos temas. Por eso
+     el interior de la card se ancla a valores claros: en tema oscuro los
+     tokens semánticos se invertirían y la card se fundiría con el fondo. */
+  --lp-color-surface: var(--lp-gray-0);
+  --lp-color-text: var(--lp-gray-900);
+  --lp-color-text-muted: var(--lp-gray-500);
+  --lp-color-border-strong: var(--lp-gray-300);
+  --lp-color-disabled-bg: var(--lp-gray-200);
+  --lp-color-disabled-text: var(--lp-gray-400);
+}
+
+/* ---- Zona de marca (logo + wordmark) ---- */
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--lp-space-3);
+}
+
+.login-brand__logo {
+  width: 76px;
+  height: 76px;
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-surface);
+  padding: var(--lp-space-2);
+  object-fit: contain;
+}
+
+.login-brand__name {
+  font-size: var(--lp-font-size-xl);
+  font-weight: var(--lp-font-weight-bold);
+  letter-spacing: -0.01em;
+  /* Fijo (no --lp-color-text-inverse): el fondo es oscuro en ambos temas. */
+  color: var(--lp-gray-0);
+}
+
+/* ---- Card ---- */
+.login-card {
+  background-color: var(--lp-color-surface);
+  color: var(--lp-color-text);
+  padding: var(--lp-space-8);
+  border-radius: var(--lp-radius-lg);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--lp-shadow-2);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin: 0 0 var(--lp-space-6);
+  font-size: var(--lp-font-size-2xl);
+  font-weight: var(--lp-font-weight-semibold);
+  line-height: var(--lp-line-snug);
+}
+
+/* ---- Campos ---- */
+.login-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--lp-space-4);
+}
+
+.login-field label {
+  margin-bottom: var(--lp-space-2);
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-medium);
+}
+
+.login-field input {
+  height: var(--lp-control-height-md);
+  padding: 0 var(--lp-control-pad-x-md);
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text);
+  background-color: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border-strong);
+  border-radius: var(--lp-radius-md);
+}
+
+.login-field input:focus {
+  outline: none;
+  border-color: var(--lp-color-primary);
+  box-shadow: var(--lp-focus-ring);
+}
+
+.login-field input:disabled {
+  background-color: var(--lp-color-disabled-bg);
+  color: var(--lp-color-disabled-text);
+  cursor: not-allowed;
+}
+
+/* ---- Contraseña + toggle ---- */
+.login-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-password input {
+  width: 100%;
+  padding-right: 44px;
+}
+
+.login-password__toggle {
+  position: absolute;
+  right: var(--lp-space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: var(--lp-radius-md);
+  background: transparent;
+  color: var(--lp-color-text-muted);
+  cursor: pointer;
+}
+
+.login-password__toggle:hover:not(:disabled) {
+  color: var(--lp-color-text);
+}
+
+.login-password__toggle:disabled {
+  cursor: not-allowed;
+  opacity: var(--lp-opacity-disabled);
+}
+
+/* ---- Botón ---- */
+.login-submit {
+  width: 100%;
+  height: var(--lp-control-height-md);
+  margin-top: var(--lp-space-2);
+  font-weight: var(--lp-font-weight-semibold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lp-space-2);
+}
+
+.login-submit:disabled {
+  opacity: var(--lp-opacity-loading);
+}
+
+.login-submit__spinner {
+  width: 15px;
+  height: 15px;
+  border-radius: var(--lp-radius-circle);
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: login-spin 700ms linear infinite;
+}
+
+@keyframes login-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Mobile: controles a 48px (mínimo táctil) ---- */
+@media (max-width: 575.98px) {
+  .login-field input {
+    height: var(--lp-control-height-lg);
+    font-size: var(--lp-font-size-md);
+  }
+
+  .login-password__toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .login-submit {
+    height: var(--lp-control-height-lg);
+  }
+}

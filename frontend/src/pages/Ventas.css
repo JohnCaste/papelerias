@@ -1,0 +1,536 @@
+/* ==========================================================================
+   Ventas · drill-down por Cards (handoff "Ventas lapape.dc.html").
+   Solo tokens semánticos --lp-* de index.css.
+   ========================================================================== */
+
+.ventas {
+  max-width: var(--lp-container-max);
+  margin: 0 auto;
+  padding: var(--lp-space-8) var(--lp-space-6) var(--lp-space-16);
+  display: grid;
+  gap: var(--lp-space-6);
+}
+
+/* ---------- topbar / stepper ---------- */
+.ventas-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lp-space-6);
+}
+
+.ventas-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+
+.ventas-crumbs__actual {
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text);
+}
+
+.ventas-crumbs__link {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-link);
+  cursor: pointer;
+}
+.ventas-crumbs__link:hover {
+  color: var(--lp-color-primary);
+  text-decoration: underline;
+}
+
+.ventas-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+}
+.ventas-stepper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid transparent;
+  background: transparent;
+  color: var(--lp-color-text);
+  cursor: pointer;
+}
+.ventas-stepper button:hover {
+  background: var(--lp-color-bg);
+}
+.ventas-stepper__val {
+  min-width: 64px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- headings ---------- */
+.ventas-head--dias {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--lp-space-4);
+}
+
+.ventas-title {
+  margin: 0;
+  font-size: var(--lp-font-size-3xl);
+  line-height: var(--lp-line-tight);
+  font-weight: var(--lp-font-weight-bold);
+  letter-spacing: -0.015em;
+  color: var(--lp-color-text);
+}
+.ventas-title--dias {
+  font-size: var(--lp-font-size-2xl);
+}
+
+.ventas-sub {
+  margin: 6px 0 0;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+.ventas-sub strong {
+  color: var(--lp-color-text);
+  font-weight: var(--lp-font-weight-bold);
+}
+
+.ventas-vacio {
+  margin: 0;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- botones base ---------- */
+.ventas-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lp-space-2);
+  height: var(--lp-control-height-md);
+  padding: 0 var(--lp-space-4);
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid transparent;
+  font-family: inherit;
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-semibold);
+  cursor: pointer;
+}
+.ventas-btn--outline {
+  background: var(--lp-color-surface);
+  border-color: var(--lp-color-border-strong);
+  color: var(--lp-color-text);
+}
+.ventas-btn--outline:hover {
+  background: var(--lp-color-bg);
+}
+
+/* ---------- grid de meses ---------- */
+.ventas-grid-meses {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--lp-space-4);
+}
+
+.ventas-card-mes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lp-space-3);
+  padding: 18px;
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  box-shadow: var(--lp-shadow-1);
+  transition:
+    box-shadow var(--lp-duration-base) var(--lp-ease-standard),
+    transform var(--lp-duration-base) var(--lp-ease-standard);
+}
+.ventas-card-mes[data-clickable] {
+  cursor: pointer;
+}
+.ventas-card-mes[data-clickable]:hover {
+  box-shadow: var(--lp-shadow-2);
+  transform: translateY(-2px);
+}
+.ventas-card-mes[data-dim] {
+  opacity: 0.5;
+}
+.ventas-card-mes[data-dim]:not([data-clickable]) {
+  cursor: default;
+}
+
+.ventas-card-mes__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ventas-card-mes__top h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text);
+}
+.ventas-card-mes__chev {
+  color: var(--lp-color-text-muted);
+}
+
+.ventas-card-mes__total {
+  font-size: 22px;
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ventas-card-mes__cov {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-space-2);
+}
+.ventas-card-mes__cov-label {
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text-muted);
+  white-space: nowrap;
+}
+
+.ventas-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--lp-radius-pill);
+  background: var(--lp-color-border);
+  overflow: hidden;
+}
+.ventas-bar__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--lp-radius-pill);
+  background: var(--lp-color-primary);
+}
+
+/* ---------- skeleton ---------- */
+.ventas-skeleton {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  animation: lp-shimmer 1400ms ease-in-out infinite;
+}
+.ventas-skeleton__l {
+  height: 14px;
+  border-radius: var(--lp-radius-sm);
+  background: var(--lp-color-border);
+}
+.ventas-skeleton__l--name {
+  width: 60%;
+}
+.ventas-skeleton__l--total {
+  height: 20px;
+  width: 80%;
+}
+.ventas-skeleton__l--bar {
+  height: 6px;
+  width: 100%;
+  border-radius: var(--lp-radius-pill);
+}
+
+@keyframes lp-shimmer {
+  0% { opacity: 0.55; }
+  50% { opacity: 1; }
+  100% { opacity: 0.55; }
+}
+
+/* ---------- error ---------- */
+.ventas-error {
+  display: grid;
+  justify-items: center;
+  gap: var(--lp-space-3);
+  padding: 44px 28px;
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  text-align: center;
+}
+.ventas-error__icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--lp-radius-circle);
+  background: var(--lp-color-danger-subtle);
+  color: var(--lp-color-danger-text);
+}
+.ventas-error h3 {
+  margin: 0;
+  font-size: var(--lp-font-size-lg);
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text);
+}
+.ventas-error p {
+  margin: 0;
+  max-width: 36ch;
+  font-size: var(--lp-font-size-sm);
+  line-height: var(--lp-line-normal);
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- leyenda ---------- */
+.ventas-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lp-space-4);
+  font-size: 13px;
+  color: var(--lp-color-text-muted);
+}
+.ventas-leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ventas-leyenda__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--lp-radius-circle);
+}
+.ventas-leyenda__dot--ok {
+  background: var(--lp-color-success);
+}
+.ventas-leyenda__dot--sin {
+  background: var(--lp-color-danger);
+}
+.ventas-leyenda__dot--hoy {
+  border: var(--lp-border-width-strong) solid var(--lp-color-primary);
+}
+
+/* ---------- panel anual (nivel meses) ---------- */
+.ventas-panel-anual {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--lp-space-4);
+}
+.ventas-panel-anual__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--lp-space-4) var(--lp-space-5);
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+}
+.ventas-panel-anual__item--total {
+  background: var(--lp-color-bg);
+  border-color: var(--lp-color-border-strong);
+}
+.ventas-panel-anual__item[data-tipo="mayor"] {
+  background: var(--lp-color-success-subtle);
+  border-color: var(--lp-color-success);
+}
+.ventas-panel-anual__item[data-tipo="menor"] {
+  background: var(--lp-color-danger-subtle);
+  border-color: var(--lp-color-danger);
+}
+.ventas-panel-anual__label {
+  font-size: var(--lp-font-size-xs);
+  color: var(--lp-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ventas-panel-anual__valor {
+  font-size: var(--lp-font-size-lg);
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+  line-height: var(--lp-line-tight);
+}
+.ventas-panel-anual__sub {
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- extremos del mes (nivel días) ---------- */
+.ventas-extremos-mes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lp-space-4);
+  font-size: 13px;
+  color: var(--lp-color-text-muted);
+}
+.ventas-extremos-mes__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--lp-radius-pill);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+}
+.ventas-extremos-mes__item[data-tipo="mayor"] {
+  background: var(--lp-color-success-subtle);
+  border-color: var(--lp-color-success);
+  color: var(--lp-color-success-text);
+}
+.ventas-extremos-mes__item[data-tipo="menor"] {
+  background: var(--lp-color-danger-subtle);
+  border-color: var(--lp-color-danger);
+  color: var(--lp-color-danger-text);
+}
+.ventas-extremos-mes__item strong {
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+}
+.ventas-extremos-mes__monto {
+  font-weight: var(--lp-font-weight-semibold);
+}
+
+/* ---------- calendario de días ---------- */
+.ventas-cal {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ventas-cal__wd {
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: var(--lp-font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lp-color-text-muted);
+}
+
+.ventas-cal__dia {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  min-height: 92px;
+  border-radius: var(--lp-radius-lg);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  box-shadow: var(--lp-shadow-1);
+  cursor: pointer;
+  transition: box-shadow var(--lp-duration-base) var(--lp-ease-standard);
+}
+.ventas-cal__dia:hover {
+  box-shadow: var(--lp-shadow-2);
+}
+.ventas-cal__dia[data-estado="ok"] {
+  background: var(--lp-color-success-subtle);
+}
+.ventas-cal__dia[data-estado="sin"] {
+  background: var(--lp-color-danger-subtle);
+}
+.ventas-cal__dia[data-hoy] {
+  border: var(--lp-border-width-strong) solid var(--lp-color-primary);
+  box-shadow: var(--lp-focus-ring);
+}
+
+.ventas-cal__dia-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ventas-cal__wdlabel {
+  font-size: 12px;
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text-muted);
+}
+.ventas-cal__num {
+  font-size: 14px;
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ventas-cal__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: var(--lp-font-weight-semibold);
+}
+.ventas-cal__dia[data-estado="ok"] .ventas-cal__status {
+  color: var(--lp-color-success-text);
+}
+.ventas-cal__dia[data-estado="sin"] .ventas-cal__status {
+  color: var(--lp-color-danger-text);
+}
+
+.ventas-cal__total {
+  margin-top: auto;
+  font-size: 13.5px;
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 991px) {
+  .ventas-grid-meses {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .ventas-grid-meses {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* mobile: meses en una columna (fila con chevron), días como celdas 44x44 */
+@media (max-width: 575px) {
+  .ventas {
+    padding: var(--lp-space-5) var(--lp-space-4) var(--lp-space-12);
+  }
+  .ventas-grid-meses {
+    grid-template-columns: 1fr;
+  }
+  .ventas-card-mes {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--lp-space-2) var(--lp-space-3);
+  }
+  .ventas-card-mes__total {
+    font-size: 16px;
+  }
+  .ventas-card-mes__cov {
+    grid-column: 1 / -1;
+  }
+
+  .ventas-cal {
+    gap: 6px;
+  }
+  .ventas-cal__dia {
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px;
+    text-align: center;
+  }
+  .ventas-cal__dia-top {
+    flex-direction: column;
+  }
+  .ventas-cal__wdlabel,
+  .ventas-cal__status {
+    display: none;
+  }
+  .ventas-cal__total {
+    font-size: 11px;
+  }
+}

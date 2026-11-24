@@ -1,0 +1,224 @@
+/* ==========================================================================
+   Punto de venta ("Vender"). Consume SOLO tokens semánticos --lp-* de
+   index.css, así responde a [data-theme="dark"]. Antes tenía hex sueltos
+   (#f1f3f5, #212529, #228be6, #2f9e44, white, …) que no seguían el tema.
+   ========================================================================== */
+
+.punto-venta {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--lp-space-5);
+  color: var(--lp-color-text);
+}
+
+/* ---------- total del día ---------- */
+.punto-venta-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--lp-space-4);
+  padding: var(--lp-space-5);
+  margin-bottom: var(--lp-space-6);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-xl);
+  box-shadow: var(--lp-shadow-1);
+  text-align: center;
+}
+
+.punto-venta-total-label {
+  font-size: var(--lp-font-size-md);
+  color: var(--lp-color-text-muted);
+}
+
+.punto-venta-total-monto {
+  font-size: var(--lp-font-size-4xl);
+  font-weight: var(--lp-font-weight-bold);
+  color: var(--lp-color-text);
+}
+
+.punto-venta-total-count {
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- estado (sync / día) ---------- */
+.punto-venta-estado-sync {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--lp-space-2);
+}
+
+.punto-venta-estado-dia {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lp-space-3);
+  margin-bottom: var(--lp-space-5);
+}
+
+.punto-venta-cerrar-dia {
+  padding: 6px var(--lp-space-3);
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text);
+  border: var(--lp-border-width) solid var(--lp-color-border-strong);
+  border-radius: var(--lp-radius-pill);
+  background: var(--lp-color-surface);
+  cursor: pointer;
+}
+
+.punto-venta-cerrar-dia:disabled {
+  color: var(--lp-color-disabled-text);
+  background: var(--lp-color-disabled-bg);
+  cursor: not-allowed;
+}
+
+.punto-venta-acciones-dia {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-space-2);
+}
+
+.punto-venta-forzar-cierre {
+  padding: var(--lp-space-1) var(--lp-space-2);
+  font-size: var(--lp-font-size-xs);
+  border: none;
+  background: transparent;
+  color: var(--lp-color-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.punto-venta-forzar-cierre:disabled {
+  color: var(--lp-color-disabled-text);
+  cursor: not-allowed;
+}
+
+/* ---------- categorías ---------- */
+.punto-venta-categorias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--lp-space-2);
+  margin-bottom: var(--lp-space-5);
+}
+
+.punto-venta-categoria {
+  padding: var(--lp-space-5) var(--lp-space-2);
+  font-size: var(--lp-font-size-lg);
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text);
+  border: var(--lp-border-width-strong) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-surface);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--lp-space-1);
+  transition: border-color var(--lp-duration-fast) var(--lp-ease-standard);
+}
+
+.punto-venta-categoria:hover {
+  border-color: var(--lp-color-secondary);
+}
+
+.punto-venta-categoria.seleccionada {
+  border-color: var(--lp-color-secondary);
+  background: var(--lp-color-info-subtle);
+  color: var(--lp-color-info-text);
+}
+
+.punto-venta-categoria-tecla {
+  font-size: var(--lp-font-size-xs);
+  font-weight: var(--lp-font-weight-regular);
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- captura (monto + guardar) ---------- */
+.punto-venta-captura {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lp-space-3);
+  margin-bottom: var(--lp-space-4);
+}
+
+.punto-venta-monto {
+  flex: 1 1 200px;
+  min-width: 0;
+  font-size: var(--lp-font-size-4xl);
+  padding: var(--lp-space-4) var(--lp-space-5);
+  color: var(--lp-color-text);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width-strong) solid var(--lp-color-border-strong);
+  border-radius: var(--lp-radius-lg);
+  text-align: right;
+}
+
+.punto-venta-monto::placeholder {
+  color: var(--lp-color-text-muted);
+}
+
+.punto-venta-monto:focus {
+  outline: none;
+  border-color: var(--lp-color-secondary);
+  box-shadow: var(--lp-focus-ring);
+}
+
+.punto-venta-monto:disabled {
+  background: var(--lp-color-disabled-bg);
+  color: var(--lp-color-disabled-text);
+}
+
+.punto-venta-guardar {
+  flex: 0 0 auto;
+  padding: 0 var(--lp-space-8);
+  font-size: var(--lp-font-size-xl);
+  font-weight: var(--lp-font-weight-semibold);
+  border: none;
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-primary);
+  color: var(--lp-color-primary-text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--lp-duration-base) var(--lp-ease-standard);
+}
+
+.punto-venta-guardar:hover:not(:disabled) {
+  background: var(--lp-color-primary-hover);
+}
+
+.punto-venta-guardar:disabled {
+  background: var(--lp-color-disabled-bg);
+  color: var(--lp-color-disabled-text);
+  cursor: not-allowed;
+}
+
+/* ---------- métodos de pago ---------- */
+.punto-venta-metodos {
+  display: flex;
+  gap: var(--lp-space-2);
+  margin-bottom: var(--lp-space-8);
+}
+
+.punto-venta-metodo {
+  padding: var(--lp-space-2) var(--lp-space-4);
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text);
+  border: var(--lp-border-width) solid var(--lp-color-border-strong);
+  border-radius: var(--lp-radius-pill);
+  background: var(--lp-color-surface);
+  cursor: pointer;
+}
+
+.punto-venta-metodo.seleccionado {
+  background: var(--lp-color-text);
+  color: var(--lp-color-text-inverse);
+  border-color: var(--lp-color-text);
+}
+
+/* ---------- historial ---------- */
+.punto-venta-historial-titulo {
+  font-size: var(--lp-font-size-lg);
+  color: var(--lp-color-text);
+  margin-bottom: var(--lp-space-3);
+}

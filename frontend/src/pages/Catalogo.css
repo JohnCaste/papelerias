@@ -1,0 +1,376 @@
+/* ==========================================================================
+   Catálogo · recreación del handoff "Catalogo lapape.dc.html".
+   Consume SOLO tokens semánticos --lp-* de index.css. Sin hex sueltos.
+
+   Antes -> después (notas 1g del handoff):
+   - card width:18rem, sin borde ni sombra  -> ProductoCard con surface + border + shadow
+   - grid minmax(335px), gap 20px           -> minmax(260px), gap --lp-space-4
+   - <p class="catalogo-error">             -> Alert danger + botón Reintentar
+   - <Spinner> centrado                     -> grilla de skeletons con forma de card
+   - clase .entrar compartida con Login.css -> layout propio (.catalogo-estado)
+   - botones de paginación #2563eb          -> --lp-color-secondary
+   ========================================================================== */
+
+.catalogo-page {
+  max-width: var(--lp-container-max);
+  margin: 0 auto;
+  padding: var(--lp-space-8) var(--lp-space-6) var(--lp-space-16);
+  display: grid;
+  gap: var(--lp-space-6);
+}
+
+/* ---------- header ---------- */
+.catalogo-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--lp-space-6);
+}
+
+.catalogo-title {
+  margin: 0;
+  font-size: var(--lp-font-size-3xl);
+  line-height: var(--lp-line-tight);
+  font-weight: var(--lp-font-weight-bold);
+  letter-spacing: -0.015em;
+  color: var(--lp-color-text);
+}
+
+.catalogo-sub {
+  margin: 6px 0 0;
+  font-size: var(--lp-font-size-sm);
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- botones base de la pantalla ---------- */
+.catalogo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lp-space-2);
+  height: var(--lp-control-height-md);
+  padding: 0 var(--lp-space-4);
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid transparent;
+  font-family: inherit;
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-semibold);
+  cursor: pointer;
+  transition: background var(--lp-duration-base) var(--lp-ease-standard);
+}
+
+.catalogo-btn--primary {
+  background: var(--lp-color-primary);
+  color: var(--lp-color-primary-text);
+}
+.catalogo-btn--primary:hover {
+  background: var(--lp-color-primary-hover);
+}
+
+.catalogo-btn--outline {
+  background: transparent;
+  border-color: var(--lp-color-border-strong);
+  color: var(--lp-color-text);
+}
+.catalogo-btn--outline:hover {
+  background: var(--lp-color-surface);
+}
+
+/* ---------- barra de filtros ---------- */
+.catalogo-filtros {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 208px 208px;
+  gap: var(--lp-space-3);
+  padding: var(--lp-space-4);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  box-shadow: var(--lp-shadow-1);
+}
+
+.catalogo-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.catalogo-search svg {
+  position: absolute;
+  left: 12px;
+  color: var(--lp-color-text-muted);
+  pointer-events: none;
+}
+
+.catalogo-search input {
+  width: 100%;
+  height: var(--lp-control-height-md);
+  padding: 0 36px 0 38px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid var(--lp-color-border-strong);
+  background: var(--lp-color-surface);
+  color: var(--lp-color-text);
+  font-family: inherit;
+  font-size: var(--lp-font-size-sm);
+}
+
+.catalogo-search-clear {
+  position: absolute;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--lp-radius-pill);
+  border: none;
+  background: var(--lp-color-bg);
+  color: var(--lp-color-text-muted);
+  cursor: pointer;
+}
+
+.catalogo-filtros select {
+  height: var(--lp-control-height-md);
+  padding: 0 12px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid var(--lp-color-border-strong);
+  background: var(--lp-color-surface);
+  color: var(--lp-color-text);
+  font-family: inherit;
+  font-size: var(--lp-font-size-sm);
+}
+
+/* ---------- grilla ---------- */
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--lp-space-4);
+}
+
+/* ---------- skeleton de carga ---------- */
+.catalogo-skeleton {
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  overflow: hidden;
+  animation: lp-shimmer 1400ms ease-in-out infinite;
+}
+
+.catalogo-skeleton__media {
+  aspect-ratio: 4 / 3;
+  background: var(--lp-color-bg);
+}
+
+.catalogo-skeleton__body {
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.catalogo-skeleton__line {
+  height: 12px;
+  border-radius: var(--lp-radius-sm);
+  background: var(--lp-color-border);
+}
+.catalogo-skeleton__line--sm {
+  height: 10px;
+  width: 46%;
+}
+.catalogo-skeleton__line--price {
+  height: 16px;
+  width: 62%;
+  margin-top: 4px;
+}
+
+@keyframes lp-shimmer {
+  0% { opacity: 0.55; }
+  50% { opacity: 1; }
+  100% { opacity: 0.55; }
+}
+
+/* ---------- estados vacíos / sin resultados ---------- */
+.catalogo-estado {
+  display: grid;
+  justify-items: center;
+  gap: var(--lp-space-3);
+  padding: var(--lp-space-12) var(--lp-space-8);
+  background: var(--lp-color-surface);
+  border: var(--lp-border-width) solid var(--lp-color-border);
+  border-radius: var(--lp-radius-lg);
+  text-align: center;
+}
+
+.catalogo-estado--vacio {
+  border-style: dashed;
+  border-color: var(--lp-color-border-strong);
+}
+
+.catalogo-estado__icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--lp-radius-circle);
+  background: var(--lp-color-bg);
+  color: var(--lp-color-text-muted);
+}
+.catalogo-estado--vacio .catalogo-estado__icono {
+  background: var(--lp-green-50);
+  color: var(--lp-green-700);
+}
+
+.catalogo-estado h3 {
+  margin: 0;
+  font-size: var(--lp-font-size-xl);
+  font-weight: var(--lp-font-weight-semibold);
+  color: var(--lp-color-text);
+}
+
+.catalogo-estado p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: var(--lp-font-size-sm);
+  line-height: var(--lp-line-normal);
+  color: var(--lp-color-text-muted);
+}
+
+/* ---------- error ---------- */
+.catalogo-alerta {
+  display: flex;
+  gap: var(--lp-space-3);
+  padding: var(--lp-space-4);
+  border-radius: var(--lp-radius-lg);
+  background: var(--lp-color-danger-subtle);
+  border-left: 4px solid var(--lp-color-danger);
+  color: var(--lp-color-danger-text);
+}
+
+.catalogo-alerta svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.catalogo-alerta__cuerpo {
+  display: grid;
+  gap: var(--lp-space-3);
+}
+
+.catalogo-alerta strong {
+  display: block;
+  font-size: var(--lp-font-size-sm);
+  font-weight: var(--lp-font-weight-semibold);
+}
+
+.catalogo-alerta span {
+  font-size: 13px;
+}
+
+.catalogo-alerta button {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lp-space-2);
+  height: var(--lp-control-height-sm);
+  padding: 0 12px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid currentColor;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: var(--lp-font-weight-semibold);
+  cursor: pointer;
+}
+
+/* ---------- paginación (fallback sin total · artboard 1b) ---------- */
+.catalogo-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lp-space-2);
+  padding-top: var(--lp-space-2);
+}
+
+.catalogo-pager__estado {
+  font-size: 13px;
+  color: var(--lp-color-text-muted);
+  padding: 0 var(--lp-space-2);
+}
+
+.catalogo-pager button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--lp-radius-md);
+  border: var(--lp-border-width) solid transparent;
+  background: var(--lp-color-secondary);
+  color: var(--lp-color-text-inverse);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: var(--lp-font-weight-semibold);
+  cursor: pointer;
+  transition: background var(--lp-duration-base) var(--lp-ease-standard);
+}
+
+.catalogo-pager button:hover:not(:disabled) {
+  background: var(--lp-color-secondary-hover);
+}
+
+.catalogo-pager button:disabled {
+  background: var(--lp-color-disabled-bg);
+  color: var(--lp-color-disabled-text);
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Responsive · breakpoints del handoff (notas 1g)
+   ========================================================================== */
+
+/* < 992 (lg): filtros en 2 filas */
+@media (max-width: 991px) {
+  .catalogo-filtros {
+    grid-template-columns: 1fr 1fr;
+  }
+  .catalogo-search {
+    grid-column: 1 / -1;
+  }
+}
+
+/* < 768 (md): header apilado */
+@media (max-width: 767px) {
+  .catalogo-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .catalogo-header .catalogo-btn {
+    width: 100%;
+  }
+}
+
+/* < 576 (xs): 1 columna, card horizontal, filtros apilados, controles 44px */
+@media (max-width: 575px) {
+  .catalogo-page {
+    padding: var(--lp-space-5) var(--lp-space-4) var(--lp-space-12);
+  }
+  .catalogo-filtros {
+    grid-template-columns: 1fr;
+  }
+  .catalogo-grid {
+    grid-template-columns: 1fr;
+  }
+  .catalogo-search input,
+  .catalogo-filtros select {
+    height: 44px;
+  }
+  .catalogo-pager {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- retro-compat: Admin.tsx todavía usa .catalogo-error ---------- */
+.catalogo-error {
+  color: var(--lp-color-danger);
+  margin-bottom: var(--lp-space-3);
+}

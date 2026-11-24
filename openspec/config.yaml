@@ -1,0 +1,28 @@
+schema: spec-driven
+
+context: |
+  Proyecto: "La Papelería" (lapape-v1) — sistema de punto de venta / catálogo
+  para una papelería. Monorepo con dos paquetes independientes.
+
+  Stack:
+  - frontend/  React + TypeScript + Vite (dev en :5173, proxy /api/* -> Flask :5000)
+  - backend/   API en Python (Flask), servida con Waitress en producción
+  - Datos:     BigQuery (dataset `lapape`), credenciales vía backend/.env
+  - Tests:     pytest, en backend/tests/
+
+  Convenciones:
+  - El código y los nombres de carpetas/módulos del backend están en español
+    (autentificacion, catalogos, ventas, esquema, acceso_datos, almacen_local...).
+  - Documentación y artefactos de OpenSpec: escribir en español.
+  - Backend arranca en modo producción salvo ENTORNO=desarrollo.
+  - El frontend siempre usa rutas relativas /api/*, nunca http://localhost:5000.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
