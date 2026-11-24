@@ -72,7 +72,7 @@ def _resolver_jwt_secret_key() -> str:
     La llave con la que se firman los tokens de sesion SHALL venir de la
     variable de entorno JWT_SECRET_KEY (en backend/.env), nunca de un
     valor fijo en el codigo -- antes vivia hardcodeada aqui mismo
-    ("<secreto-viejo-ya-rotado>", visible en el historial de git). Con el
+    (visible en el historial de git, ya rotado). Con el
     backend corriendo siempre (arranque automatico / servicio de
     Windows) y expuesto en la red local via Waitress, ese secreto
     expuesto deja de ser un detalle pendiente y pasa a ser una forma de

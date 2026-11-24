@@ -4,6 +4,7 @@ Tests de ventas/capturas.py -- vistas de Flask con el journal falseado
 con JWT contra el journal real en una carpeta temporal.
 """
 
+import decimal
 import json
 
 import pytest
@@ -268,6 +269,26 @@ def test_producto_con_stock_suficiente_no_trae_advertencias(app, monkeypatch):
 
     assert status == 201
     assert "advertencias" not in json.loads(body.get_data(as_text=True))
+
+
+@pytest.mark.parametrize("stock, avisa", [(decimal.Decimal("10"), False), (decimal.Decimal("1"), True)])
+def test_stock_decimal_de_bigquery_no_truena_la_venta(app, monkeypatch, stock, avisa):
+    # SUM() sobre la columna NUMERIC `cantidad` llega de BigQuery como
+    # Decimal; restarle la cantidad (float) daba TypeError y la venta
+    # respondia 500 sin guardarse.
+    monkeypatch.setattr(movimientos_repo, "stock_de_varios", lambda ids: {"p1": stock})
+    monkeypatch.setattr(journal, "escribir_venta", lambda datos: {**datos, "id": "v1"})
+    monkeypatch.setattr(vista, "get_jwt_identity", lambda: "u1")
+
+    with app.test_request_context(
+        "/api/ventas",
+        method="POST",
+        json={"lineas": [{"tipo": "producto", "producto_id": "p1", "monto": 5, "cantidad": 3}]},
+    ):
+        body, status = vista.capturar_venta()
+
+    assert status == 201
+    assert ("advertencias" in json.loads(body.get_data(as_text=True))) is avisa
 
 
 def test_producto_con_stock_en_cero_avisa_pero_igual_se_vende(app, monkeypatch):

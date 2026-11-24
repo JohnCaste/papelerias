@@ -114,7 +114,9 @@ def _advertencias_de_stock(lineas: list) -> list:
     for linea in lineas:
         if linea["tipo"] != "producto":
             continue
-        stock = stock_por_id.get(linea["producto_id"], 0)
+        # SUM() de una columna NUMERIC llega como Decimal; restarle un
+        # float truena, asi que se normaliza antes de comparar.
+        stock = float(stock_por_id.get(linea["producto_id"], 0))
         if stock - linea["cantidad"] < 0:
             advertencias.append(
                 f"Producto {linea['producto_id']}: stock actual ({stock}) "

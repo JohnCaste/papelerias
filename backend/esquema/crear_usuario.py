@@ -12,9 +12,9 @@ plano, aunque el legado tenga filas asi (credenciales.py las re-hashea
 sola en el primer login correcto).
 
 Uso (desde backend/):
-    .\venv\Scripts\python.exe -m esquema.crear_usuario --nombre Miguel --password <contrasena>
-    .\venv\Scripts\python.exe -m esquema.crear_usuario --nombre Miguel --password <contrasena> --rol dueno
-    .\venv\Scripts\python.exe -m esquema.crear_usuario --nombre Miguel --password <contrasena> --dry-run
+    .\venv\Scripts\python.exe -m esquema.crear_usuario --nombre <nombre> --password <contrasena>
+    .\venv\Scripts\python.exe -m esquema.crear_usuario --nombre <nombre> --password <contrasena> --rol dueno
+    .\venv\Scripts\python.exe -m esquema.crear_usuario --nombre <nombre> --password <contrasena> --dry-run
 
 Si el nombre ya existe NO se duplica: se avisa y no se escribe nada
 (--reemplazar-password cambia la contrasena del que ya esta).

@@ -12,7 +12,7 @@ from acceso_datos.escrituras import ErrorInsercion, insertar_filas
 
 class ClienteFalso:
     def __init__(self, errores=None):
-        self.project = "mi-proyecto-gcp"
+        self.project = "proyecto-de-prueba"
         self.errores = errores or []
         self.llamadas = []
 
@@ -31,7 +31,7 @@ def test_arma_tabla_id_con_el_project_del_cliente():
     cliente = ClienteFalso()
     insertar_filas("lapape.producto", [{"id": "1"}], cliente=cliente)
     tabla_id, _, _ = cliente.llamadas[0]
-    assert tabla_id == "mi-proyecto-gcp.lapape.producto"
+    assert tabla_id == "proyecto-de-prueba.lapape.producto"
 
 
 def test_manda_row_ids_para_deduplicacion():
